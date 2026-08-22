@@ -1,0 +1,87 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --font-serif: 'Cormorant Garamond', Georgia, serif;
+    --font-display: 'Cinzel', 'Cormorant Garamond', Georgia, serif;
+    --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+    --font-urdu: 'Noto Nastaliq Urdu', serif;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background-color: #0B0B0E;
+    color: #ECE7DF;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-heading {
+    font-family: var(--font-display);
+    letter-spacing: -0.01em;
+  }
+
+  .font-subheading {
+    font-family: var(--font-serif);
+  }
+
+  .font-urdu {
+    font-family: var(--font-urdu);
+  }
+}
+
+/* Custom Gold Gradient Text & Borders */
+.text-gold-gradient {
+  background: linear-gradient(135deg, #F9E7B3 0%, #D4AF37 50%, #AA7C11 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-gold-light {
+  background: linear-gradient(135deg, #FFF4D0 0%, #E6C875 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.border-gold-subtle {
+  border-color: rgba(212, 175, 55, 0.25);
+}
+
+.bg-gold-gradient {
+  background: linear-gradient(135deg, #E5C058 0%, #D4AF37 50%, #B8860B 100%);
+}
+
+.bg-charcoal-card {
+  background-color: #141418;
+  border: 1px solid rgba(245, 239, 230, 0.08);
+}
+
+.bg-charcoal-elevated {
+  background-color: #19191F;
+  border: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+/* Subtle Traditional Geometric Pattern Background */
+.bg-islamic-pattern {
+  background-image: radial-gradient(rgba(212, 175, 55, 0.06) 1px, transparent 1px), radial-gradient(rgba(212, 175, 55, 0.03) 1px, #0B0B0E 1px);
+  background-size: 40px 40px;
+  background-position: 0 0, 20px 20px;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0B0B0E;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2A2A33;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #D4AF37;
+}
