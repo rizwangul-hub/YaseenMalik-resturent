@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Edit2, Trash2, Flame, CheckCircle, XCircle } from 'lucide-react';
+import { Plus, Edit2, Trash2, Flame, CheckCircle, XCircle, Loader2 } from 'lucide-react';
 import platterService from '../services/platterService';
 import { Platter } from '../types';
 import { useToast } from '../context/ToastContext';
@@ -13,6 +13,7 @@ export const PlatterManagement: React.FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [editingPlatter, setEditingPlatter] = useState<Platter | null>(null);
   const [formData, setFormData] = useState({
     name: '',
@@ -98,6 +99,7 @@ export const PlatterManagement: React.FC = () => {
       return;
     }
 
+    setIsSubmitting(true);
     try {
       if (editingPlatter) {
         await platterService.updatePlatter(editingPlatter.id, formData);
@@ -110,6 +112,8 @@ export const PlatterManagement: React.FC = () => {
       fetchPlatters();
     } catch (err) {
       showToast('Error saving platter', 'error');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -326,15 +330,24 @@ export const PlatterManagement: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 text-sm text-gray-400 hover:text-white bg-white/5 rounded-xl"
+                  disabled={isSubmitting}
+                  className="px-4 py-2 text-sm text-gray-400 hover:text-white bg-white/5 rounded-xl disabled:opacity-50"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-[#D4AF37] hover:bg-[#B59226] text-black font-semibold text-sm rounded-xl"
+                  disabled={isSubmitting}
+                  className="px-4 py-2 bg-[#D4AF37] hover:bg-[#B59226] text-black font-semibold text-sm rounded-xl flex items-center space-x-2 disabled:opacity-50"
                 >
-                  Save Platter / Deal
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin text-black" />
+                      <span>Saving Platter...</span>
+                    </>
+                  ) : (
+                    <span>Save Platter / Deal</span>
+                  )}
                 </button>
               </div>
             </form>

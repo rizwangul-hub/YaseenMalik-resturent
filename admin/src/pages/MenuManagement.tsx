@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Plus, Search, Edit2, Trash2, Filter, Eye, Star, CheckCircle, XCircle } from 'lucide-react';
+import { Plus, Search, Edit2, Trash2, Filter, Eye, Star, CheckCircle, XCircle, Loader2 } from 'lucide-react';
 import menuService from '../services/menuService';
 import categoryService from '../services/categoryService';
 import { MenuItem } from '../types';
@@ -20,6 +20,7 @@ export const MenuManagement: React.FC = () => {
 
   // Modal Form State
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [editingItem, setEditingItem] = useState<MenuItem | null>(null);
   const [formData, setFormData] = useState({
     name: '',
@@ -110,6 +111,7 @@ export const MenuManagement: React.FC = () => {
       return;
     }
 
+    setIsSubmitting(true);
     try {
       if (editingItem) {
         await menuService.updateMenuItem(editingItem.id, formData);
@@ -122,6 +124,8 @@ export const MenuManagement: React.FC = () => {
       fetchData();
     } catch (err) {
       showToast('Error saving menu item', 'error');
+    } finally {
+      setIsSubmitting(false);
     }
   };
 
@@ -331,7 +335,7 @@ export const MenuManagement: React.FC = () => {
       {/* Modal Form for Create / Edit */}
       {isModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm animate-fade-in overflow-y-auto">
-          <div className="bg-[#14151B] border border-white/10 rounded-2xl p-6 max-w-lg w-full shadow-2xl space-y-4 my-8">
+          <div className="bg-[#14151B] border border-white/10 rounded-2xl p-6 max-w-lg w-full shadow-2xl space-y-4 my-8 max-h-[90vh] overflow-y-auto">
             <h3 className="text-lg font-bold text-white">
               {editingItem ? 'Edit Menu Item' : 'Add New Menu Item'}
             </h3>
@@ -445,15 +449,24 @@ export const MenuManagement: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setIsModalOpen(false)}
-                  className="px-4 py-2 text-sm text-gray-400 hover:text-white bg-white/5 rounded-xl"
+                  disabled={isSubmitting}
+                  className="px-4 py-2 text-sm text-gray-400 hover:text-white bg-white/5 rounded-xl disabled:opacity-50"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
-                  className="px-4 py-2 bg-[#D4AF37] hover:bg-[#B59226] text-black font-semibold text-sm rounded-xl"
+                  disabled={isSubmitting}
+                  className="px-4 py-2 bg-[#D4AF37] hover:bg-[#B59226] text-black font-semibold text-sm rounded-xl flex items-center space-x-2 disabled:opacity-50"
                 >
-                  {editingItem ? 'Save Changes' : 'Create Item'}
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="w-4 h-4 animate-spin text-black" />
+                      <span>Saving Item...</span>
+                    </>
+                  ) : (
+                    <span>{editingItem ? 'Save Changes' : 'Create Item'}</span>
+                  )}
                 </button>
               </div>
             </form>
