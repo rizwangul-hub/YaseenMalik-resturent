@@ -6,8 +6,10 @@ export const menuService = {
   async getMenuItems(params?: Record<string, any>): Promise<MenuItem[]> {
     try {
       const response = await api.get('/menu', { params });
-      if (response.data && response.data.success && Array.isArray(response.data.data) && response.data.data.length > 0) {
-        return response.data.data;
+      if (response.data && response.data.success && Array.isArray(response.data.data)) {
+        if (response.data.data.length > 0) {
+          return response.data.data;
+        }
       }
     } catch (error) {
       console.warn('[MenuService] API unavailable, using fallback menu data');
@@ -18,8 +20,10 @@ export const menuService = {
   async getSpecialties(): Promise<MenuItem[]> {
     try {
       const response = await api.get('/menu', { params: { isSpecialty: 'true' } });
-      if (response.data && response.data.success && Array.isArray(response.data.data) && response.data.data.length > 0) {
-        return response.data.data;
+      if (response.data && response.data.success && Array.isArray(response.data.data)) {
+        if (response.data.data.length > 0) {
+          return response.data.data;
+        }
       }
     } catch (error) {
       console.warn('[MenuService] API unavailable, using fallback specialties data');

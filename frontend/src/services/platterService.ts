@@ -6,8 +6,10 @@ export const platterService = {
   async getPlatters(): Promise<Platter[]> {
     try {
       const response = await api.get('/platters');
-      if (response.data && response.data.success && Array.isArray(response.data.data) && response.data.data.length > 0) {
-        return response.data.data;
+      if (response.data && response.data.success && Array.isArray(response.data.data)) {
+        if (response.data.data.length > 0) {
+          return response.data.data;
+        }
       }
     } catch (error) {
       console.warn('[PlatterService] API unavailable, using fallback platters data');
