@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import mongoose from 'mongoose';
-import Order from '../models/Order';
-import MenuItem from '../models/MenuItem';
-import Platter from '../models/Platter';
+import Order from '../models/Order.js';
+import MenuItem from '../models/MenuItem.js';
+import Platter from '../models/Platter.js';
 
 // In-memory fallback order store for when DB is in fallback mode
 const fallbackOrdersMap = new Map<string, any>();

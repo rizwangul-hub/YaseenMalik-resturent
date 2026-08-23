@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Reservation from '../models/Reservation';
+import Reservation from '../models/Reservation.js';
 
 export const createReservation = async (req: Request, res: Response) => {
   try {

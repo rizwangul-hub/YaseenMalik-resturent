@@ -5,8 +5,8 @@ import {
   createMenuItem,
   updateMenuItem,
   deleteMenuItem,
-} from '../controllers/menuController';
-import { protect, authorize } from '../middleware/authMiddleware';
+} from '../controllers/menuController.js';
+import { protect, authorize } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 

@@ -1,6 +1,6 @@
 import express from 'express';
-import { getSettings, updateSettings, getNotificationStats } from '../controllers/settingsController';
-import { protect, authorize } from '../middleware/authMiddleware';
+import { getSettings, updateSettings, getNotificationStats } from '../controllers/settingsController.js';
+import { protect, authorize } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 

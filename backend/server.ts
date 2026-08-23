@@ -3,23 +3,23 @@ import dotenv from 'dotenv';
 import cors from 'cors';
 import helmet from 'helmet';
 import cookieParser from 'cookie-parser';
-import { connectDB } from './config/db';
-import { notFound, errorHandler } from './middleware/errorMiddleware';
-import { apiLimiter } from './middleware/rateLimiter';
+import { connectDB } from './config/db.js';
+import { notFound, errorHandler } from './middleware/errorMiddleware.js';
+import { apiLimiter } from './middleware/rateLimiter.js';
 
 // Route imports
-import authRoutes from './routes/authRoutes';
-import userRoutes from './routes/userRoutes';
-import menuRoutes from './routes/menuRoutes';
-import categoryRoutes from './routes/categoryRoutes';
-import platterRoutes from './routes/platterRoutes';
-import galleryRoutes from './routes/galleryRoutes';
-import reviewRoutes from './routes/reviewRoutes';
-import orderRoutes from './routes/orderRoutes';
-import reservationRoutes from './routes/reservationRoutes';
-import settingsRoutes from './routes/settingsRoutes';
-import messageRoutes from './routes/messageRoutes';
-import uploadRoutes from './routes/uploadRoutes';
+import authRoutes from './routes/authRoutes.js';
+import userRoutes from './routes/userRoutes.js';
+import menuRoutes from './routes/menuRoutes.js';
+import categoryRoutes from './routes/categoryRoutes.js';
+import platterRoutes from './routes/platterRoutes.js';
+import galleryRoutes from './routes/galleryRoutes.js';
+import reviewRoutes from './routes/reviewRoutes.js';
+import orderRoutes from './routes/orderRoutes.js';
+import reservationRoutes from './routes/reservationRoutes.js';
+import settingsRoutes from './routes/settingsRoutes.js';
+import messageRoutes from './routes/messageRoutes.js';
+import uploadRoutes from './routes/uploadRoutes.js';
 
 dotenv.config();
 
@@ -76,8 +76,10 @@ app.use(errorHandler);
 
 const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
-  console.log(`[Server] Yaseen Malak Restaurant Backend running on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== 'production' || !process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`[Server] Yaseen Malak Restaurant Backend running on port ${PORT}`);
+  });
+}
 
 export default app;

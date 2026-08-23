@@ -3,8 +3,8 @@ import {
   createReservation,
   getReservations,
   updateReservationStatus,
-} from '../controllers/reservationController';
-import { protect, authorize } from '../middleware/authMiddleware';
+} from '../controllers/reservationController.js';
+import { protect, authorize } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 

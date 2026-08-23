@@ -1,6 +1,6 @@
 import express from 'express';
-import { createOrder, trackOrder, getOrders, getOrderById, updateOrderStatus } from '../controllers/orderController';
-import { protect, authorize } from '../middleware/authMiddleware';
+import { createOrder, trackOrder, getOrders, getOrderById, updateOrderStatus } from '../controllers/orderController.js';
+import { protect, authorize } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 

@@ -1,5 +1,5 @@
 import { Request, Response } from 'express';
-import Platter from '../models/Platter';
+import Platter from '../models/Platter.js';
 
 export const getPlatters = async (req: Request, res: Response) => {
   try {

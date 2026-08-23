@@ -1,9 +1,9 @@
 import { Request, Response } from 'express';
-import Settings from '../models/Settings';
-import Order from '../models/Order';
-import Reservation from '../models/Reservation';
-import Review from '../models/Review';
-import Message from '../models/Message';
+import Settings from '../models/Settings.js';
+import Order from '../models/Order.js';
+import Reservation from '../models/Reservation.js';
+import Review from '../models/Review.js';
+import Message from '../models/Message.js';
 
 export const getSettings = async (req: Request, res: Response) => {
   try {

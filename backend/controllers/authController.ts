@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import mongoose from 'mongoose';
-import User from '../models/User';
-import { generateToken } from '../utils/generateToken';
-import { AuthRequest } from '../middleware/authMiddleware';
+import User from '../models/User.js';
+import { generateToken } from '../utils/generateToken.js';
+import { AuthRequest } from '../middleware/authMiddleware.js';
 
 // @desc    Register a new admin user
 // @route   POST /api/auth/register

@@ -1,6 +1,6 @@
 import express from 'express';
-import { getGalleryItems, createGalleryItem, deleteGalleryItem } from '../controllers/galleryController';
-import { protect, authorize } from '../middleware/authMiddleware';
+import { getGalleryItems, createGalleryItem, deleteGalleryItem } from '../controllers/galleryController.js';
+import { protect, authorize } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 

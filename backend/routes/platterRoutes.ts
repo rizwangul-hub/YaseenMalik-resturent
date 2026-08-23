@@ -5,8 +5,8 @@ import {
   createPlatter,
   updatePlatter,
   deletePlatter,
-} from '../controllers/platterController';
-import { protect, authorize } from '../middleware/authMiddleware';
+} from '../controllers/platterController.js';
+import { protect, authorize } from '../middleware/authMiddleware.js';
 
 const router = express.Router();
 

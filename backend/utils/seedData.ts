@@ -1,13 +1,13 @@
 import dotenv from 'dotenv';
 import mongoose from 'mongoose';
-import User from '../models/User';
-import Category from '../models/Category';
-import MenuItem from '../models/MenuItem';
-import Platter from '../models/Platter';
-import Gallery from '../models/Gallery';
-import Review from '../models/Review';
-import Settings from '../models/Settings';
-import { connectDB } from '../config/db';
+import User from '../models/User.js';
+import Category from '../models/Category.js';
+import MenuItem from '../models/MenuItem.js';
+import Platter from '../models/Platter.js';
+import Gallery from '../models/Gallery.js';
+import Review from '../models/Review.js';
+import Settings from '../models/Settings.js';
+import { connectDB } from '../config/db.js';
 
 dotenv.config();
 
