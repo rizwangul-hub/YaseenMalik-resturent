@@ -1,6 +1,14 @@
-# 🍗 Yaseen Malak Restaurant — Full Stack Web Application
+# 🍗 Yaseen Malak Restaurant — Full Stack Web Application & CMS
 
-Welcome to the official web application and CMS portal for **Yaseen Malak Restaurant** (Peshawar Ring Road).
+Official web application, executive CMS portal, and REST API for **Yaseen Malak Restaurant** (Peshawar Ring Road).
+
+---
+
+## 🌐 Live Production Deployments (Vercel)
+
+- 🌐 **Public Website**: [https://yaseen-malik-resturent.vercel.app](https://yaseen-malik-resturent.vercel.app)
+- 🔐 **Admin CMS Panel**: [https://yaseen-malik-resturent-e9pd.vercel.app](https://yaseen-malik-resturent-e9pd.vercel.app)
+- ⚙️ **Backend REST API**: [https://yaseen-malik-resturent-bqfm.vercel.app](https://yaseen-malik-resturent-bqfm.vercel.app)
 
 ---
 
@@ -18,75 +26,40 @@ yaseen-malak-restaurant/
 
 ---
 
-## ⚡ Local Development Setup
-
-### 1. Install Dependencies
-Run from the root folder:
-```bash
-npm run setup
-```
-*(Or navigate into `frontend`, `admin`, `backend` individually and run `npm install`)*
-
----
-
-### 2. Start Servers
-
-- **Frontend Customer Site** (Port `3000`):
-  ```bash
-  npm run dev:frontend
-  ```
-  Open: [http://localhost:3000](http://localhost:3000)
-
-- **Admin CMS Panel** (Port `3001`):
-  ```bash
-  npm run dev:admin
-  ```
-  Open: [http://localhost:3001](http://localhost:3001)
-
-- **Backend Express API** (Port `5000`):
-  ```bash
-  npm run dev:backend
-  ```
-  API Base: `http://localhost:5000/api`
-
----
-
-## 🔐 Super Admin Login Credentials
+## 🔑 Admin Login Credentials
 
 - **Email**: `admin@yaseenmalakrestaurant.com`
 - **Password**: `Admin@123456`
 
 ---
 
-## 🚀 Live Vercel Deployment Instructions
+## ⚙️ Environment Variables Setup
 
-### Deploying Frontend & Admin to Vercel
+### 1. Frontend (`frontend/.env`)
+```env
+VITE_API_URL=https://yaseen-malik-resturent-bqfm.vercel.app/api
+```
 
-1. **Push Repository to GitHub**:
-   ```bash
-   git add .
-   git commit -m "Ready for Vercel & GitHub deployment"
-   git push origin main
-   ```
+### 2. Admin Panel (`admin/.env`)
+```env
+VITE_API_URL=https://yaseen-malik-resturent-bqfm.vercel.app/api
+```
 
-2. **Deploy Customer Site to Vercel**:
-   - Go to [Vercel Dashboard](https://vercel.com/new).
-   - Import your GitHub Repository.
-   - Set **Root Directory**: `frontend`
-   - Set **Framework Preset**: `Vite`
-   - Click **Deploy**.
+### 3. Backend API (`backend/.env` & Vercel Dashboard)
+```env
+PORT=5000
+NODE_ENV=production
+MONGO_URI=mongodb+srv://rizwangul535_db_user:LYGTNebZbKQQ0csd@cluster0.wun93hu.mongodb.net/yaseen_malak_db
+JWT_SECRET=yaseen_malak_super_secret_jwt_key_2026
+CLOUDINARY_CLOUD_NAME=your_cloudinary_cloud_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
+```
 
-3. **Deploy Admin Panel to Vercel**:
-   - Create a second project on Vercel from the same repository.
-   - Set **Root Directory**: `admin`
-   - Set **Framework Preset**: `Vite`
-   - Click **Deploy**.
+---
 
-4. **Deploy Express Backend to Render or Vercel**:
-   - Set **Root Directory**: `backend`
-   - Set Environment Variables:
-     - `MONGO_URI`
-     - `JWT_SECRET`
-     - `CLOUDINARY_CLOUD_NAME`
-     - `CLOUDINARY_API_KEY`
-     - `CLOUDINARY_API_SECRET`
+## ⚡ Local Development Commands
+
+- **Start Customer Site**: `npm run dev:frontend` (Port 3000)
+- **Start Admin Panel**: `npm run dev:admin` (Port 3001)
+- **Start Backend API**: `npm run dev:backend` (Port 5000)
