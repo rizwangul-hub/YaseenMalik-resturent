@@ -47,7 +47,30 @@ app.use(cookieParser());
 // 3. General Rate Limiter for all API routes (skips OPTIONS preflight)
 app.use('/api', apiLimiter);
 
-// Health Check
+// Root & Health Check Endpoints
+app.get('/', (req, res) => {
+  res.json({
+    success: true,
+    message: 'Yaseen Malak Restaurant Backend API is Live on Vercel 🚀',
+    endpoints: {
+      health: '/api/health',
+      menu: '/api/menu',
+      platters: '/api/platters',
+      orders: '/api/orders',
+      auth: '/api/auth/login',
+    },
+    timestamp: new Date().toISOString(),
+  });
+});
+
+app.get('/api', (req, res) => {
+  res.json({
+    success: true,
+    message: 'Yaseen Malak Restaurant API Endpoint Base',
+    timestamp: new Date().toISOString(),
+  });
+});
+
 app.get('/api/health', (req, res) => {
   res.json({
     success: true,
