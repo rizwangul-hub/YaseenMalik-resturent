@@ -16,17 +16,24 @@ export const SignaturePlatters: React.FC<SignaturePlattersProps> = ({
   const [platters, setPlatters] = useState<Platter[]>(SIGNATURE_PLATTERS);
 
   useEffect(() => {
+    let isMounted = true;
     const fetchPlattersData = async () => {
       try {
         const res = await platterService.getPlatters();
-        if (res && res.length > 0) {
+        if (isMounted && res && res.length > 0) {
           setPlatters(res);
         }
       } catch (e) {
         console.warn('[SignaturePlatters] Using default platters data');
       }
     };
+
     fetchPlattersData();
+    const timer = setInterval(fetchPlattersData, 10000);
+    return () => {
+      isMounted = false;
+      clearInterval(timer);
+    };
   }, []);
 
   return (
@@ -53,6 +60,8 @@ export const SignaturePlatters: React.FC<SignaturePlattersProps> = ({
         <div className="space-y-12">
           {platters.map((platter, idx) => {
             const isEven = idx % 2 === 0;
+            const imageSrc = platter.imageUrl || platter.image || '/assets/images/hero_bbq_platter_1787336142698.jpg';
+
             return (
               <div
                 key={platter.id || idx}
@@ -67,7 +76,7 @@ export const SignaturePlatters: React.FC<SignaturePlattersProps> = ({
                     }`}
                   >
                     <img
-                      src={platter.imageUrl}
+                      src={imageSrc}
                       alt={platter.name}
                       referrerPolicy="no-referrer"
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"

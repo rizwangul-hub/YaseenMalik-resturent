@@ -18,17 +18,24 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
   const [searchQuery, setSearchQuery] = useState<string>('');
 
   useEffect(() => {
+    let isMounted = true;
     const fetchMenuData = async () => {
       try {
         const res = await menuService.getMenuItems();
-        if (res && res.length > 0) {
+        if (isMounted && res && res.length > 0) {
           setItemsList(res);
         }
       } catch (e) {
         console.warn('[MenuSection] Using fallback static menu items');
       }
     };
+
     fetchMenuData();
+    const timer = setInterval(fetchMenuData, 10000);
+    return () => {
+      isMounted = false;
+      clearInterval(timer);
+    };
   }, []);
 
   const categories = [
@@ -145,6 +152,8 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredItems.map((item) => {
               const isUnavailable = item.isAvailable === false;
+              const imageSrc = item.imageUrl || item.image || '/assets/images/hero_bbq_platter_1787336142698.jpg';
+
               return (
                 <div
                   key={item.id}
@@ -156,7 +165,7 @@ export const MenuSection: React.FC<MenuSectionProps> = ({
                   {/* Food Image */}
                   <div className="relative h-48 overflow-hidden bg-[#181822]">
                     <img
-                      src={item.imageUrl}
+                      src={imageSrc}
                       alt={item.name}
                       referrerPolicy="no-referrer"
                       className={`w-full h-full object-cover group-hover:scale-105 transition-transform duration-500 ${
