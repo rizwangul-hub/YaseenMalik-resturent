@@ -21,4 +21,18 @@ export const api = axios.create({
   },
 });
 
+// Request interceptor to automatically attach JWT Bearer token
+api.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem('ym_admin_token');
+    if (token && token !== 'logged_in') {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 export default api;
