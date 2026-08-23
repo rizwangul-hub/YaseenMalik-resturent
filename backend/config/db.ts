@@ -1,15 +1,24 @@
 import mongoose from 'mongoose';
 
-export const connectDB = async (): Promise<void> => {
-  try {
-    // Disable command buffering so queries fail fast if DB is disconnected instead of hanging
-    mongoose.set('bufferCommands', false);
+let isConnected = 0;
 
-    const connStr = process.env.MONGO_URL || 'mongodb+srv://rizwangul535_db_user:LYGTNebZbKQQ0csd@cluster0.wun93hu.mongodb.net/yaseen_malak_db';
+export const connectDB = async (): Promise<void> => {
+  if (mongoose.connection.readyState >= 1 || isConnected === 1) {
+    return;
+  }
+
+  try {
+    const connStr =
+      process.env.MONGO_URI ||
+      process.env.MONGO_URL ||
+      'mongodb+srv://rizwangul535_db_user:LYGTNebZbKQQ0csd@cluster0.wun93hu.mongodb.net/yaseen_malak_db';
+
     const conn = await mongoose.connect(connStr, {
-      serverSelectionTimeoutMS: 3000, // Timeout after 3s instead of 30s
+      serverSelectionTimeoutMS: 5000,
     });
-    console.log(`[MongoDB] Connected: ${conn.connection.host}`);
+
+    isConnected = conn.connection.readyState;
+    console.log(`[MongoDB] Connected successfully: ${conn.connection.host}`);
   } catch (error: any) {
     console.warn(`[MongoDB Notice]: Connection failed (${error.message}). API will run in fallback mode.`);
   }

@@ -23,12 +23,9 @@ import uploadRoutes from './routes/uploadRoutes.js';
 
 dotenv.config();
 
-// Connect to Database
-connectDB();
-
 const app = express();
 
-// 1. Enable CORS first for all origins & methods (supports localhost, 127.0.0.1, and LAN IPs)
+// 1. Enable CORS first for all origins & methods (supports localhost, 127.0.0.1, Vercel, and LAN IPs)
 app.use(
   cors({
     origin: true,
@@ -44,7 +41,15 @@ app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 app.use(cookieParser());
 
-// 3. General Rate Limiter for all API routes (skips OPTIONS preflight)
+// 3. Ensure MongoDB connection is initialized before processing requests
+app.use(async (req, res, next) => {
+  try {
+    await connectDB();
+  } catch (e) {}
+  next();
+});
+
+// 4. General Rate Limiter for all API routes (skips OPTIONS preflight)
 app.use('/api', apiLimiter);
 
 // Root & Health Check Endpoints
